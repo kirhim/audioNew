@@ -40,25 +40,6 @@ class Slides extends Component {
           >
           {this.renderSlides()}
         </ScrollView>
-        <View style={{width:SCREEN_WIDTH, height:300, justifyContent:'center', alignItems:'center', backgroundColor:'white'}}>
-        <Button
-            title="페이스북으로 로그인하기"
-            raised
-            buttonStyle={[styles.buttonStyle, {backgroundColor: '#4B67AD',justifyContent:'center', alignItems:'center',}]}/>
-
-        <Button
-          raised
-          title="카카오톡 로그인"
-          textStyle={{color:'black'}}
-          buttonStyle={[styles.buttonStyle,{justifyContent:'center', alignItems:'center',backgroundColor: '#FFFF00'}]}/>
-
-        <Button
-          raised
-          title="이메일로 로그인하기"
-          textStyle={{color:'white'}}
-          buttonStyle={[styles.buttonStyle,{justifyContent:'center', alignItems:'center',backgroundColor: 'gray'}]}/>
-
-        </View>
       </View>
     )
   }

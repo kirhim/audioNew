@@ -9,6 +9,9 @@ import DeckScreen from './screens/DeckScreen'
 import MapScreen from './screens/MapScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import ReviewScreen from './screens/ReviewScreen'
+import EmailLoginScreen from './screens/EmailLoginScreen'
+import FindPassWordScreen from './screens/FindPassWordScreen'
+console.disableYellowBox = true;
 
 class App extends Component {
   render() {
@@ -21,7 +24,8 @@ class App extends Component {
 
 const TabNavigator = createBottomTabNavigator({
   welcome: WelcomeScreen,
-  auth: AuthScreen,
+  email:EmailLoginScreen,
+  password:FindPassWordScreen,
   main:{
     screen:createBottomTabNavigator({
           map:MapScreen,
@@ -29,7 +33,8 @@ const TabNavigator = createBottomTabNavigator({
           review:{
             screen:createStackNavigator({
               review:ReviewScreen,
-              settings:SettingsScreen
+              settings:SettingsScreen,
+
           })
         }
       })
