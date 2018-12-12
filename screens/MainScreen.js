@@ -47,9 +47,14 @@ class MainScreen extends Component {
                 <Animated.View style={{ backgroundColor:'gray',height:AnimateHeaderHeight,opacity:0.5, marginTop:0}}>
                     <Animated.View style={{paddingLeft:10,paddingRight:10,flexDirection:'row', marginHorizontal:0, position:'relative'}}>
                           <Left>
+
+                        <TouchableOpacity
+                          style={{marginTop:0}}
+                          onPress={()=>this.props.navigation.openDrawer()}>
                          <Image
                                 style={{height:20,width:20}}
                                 source={require('../assets/drawable-hdpi/ic_menu.png')}></Image>
+                        </TouchableOpacity>
                          </Left>
                            <Image
                                 style={{height:30,width:140}}

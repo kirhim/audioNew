@@ -1,7 +1,12 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View,Dimensions} from 'react-native';
-import {createBottomTabNavigator, createAppContainer, createStackNavigator,createMaterialTopTabNavigator} from 'react-navigation'
+import {createBottomTabNavigator,
+        createAppContainer,
+        createStackNavigator,
+        createMaterialTopTabNavigator,
+        createDrawerNavigator,
+        createSwitchNavigator} from 'react-navigation'
 import AuthScreen from './screens/AuthScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 import DeckScreen from './screens/DeckScreen'
@@ -14,6 +19,8 @@ import RegisterScreen from './screens/RegisterScreen'
 import AgreementScreen from './screens/AgreementScreen'
 import MainScreen from './screens/MainScreen'
 import Second from './screens/Second'
+import Fourth from './screens/Fourth'
+
 
 
 
@@ -30,9 +37,7 @@ export default class App extends Component {
 }
 
 const tabBarHeight = 100
-
-
-const TabNavigator = createStackNavigator({
+const AppStackNavigator = createStackNavigator({
   welcome: {
   screen: WelcomeScreen,
   navigationOptions: {
@@ -61,9 +66,9 @@ const TabNavigator = createStackNavigator({
   screen: AgreementScreen,
   navigationOptions: {
       header: null
-    },
+    }
   },
-  home: {
+  Home: {
   screen: createMaterialTopTabNavigator({
     Home:{
     screen:MainScreen,
@@ -97,24 +102,32 @@ const TabNavigator = createStackNavigator({
       color:"white"
     }
   }
- }
-),
+ }),
   navigationOptions: {
       header: null
-    },
-  },
-  main:{
-    screen:createBottomTabNavigator({
-          map:MapScreen,
-          review:{
-            screen:createStackNavigator({
-              review:ReviewScreen,
-              settings:SettingsScreen,
-          })
-        }
-      })
     }
+   }
   })
+
+
+
+  const AppDrawerNavigator = createDrawerNavigator({
+    Home: AppStackNavigator,
+    Second: Second
+  }
+  )
+
+
+  const StartSwitchNavigator = createSwitchNavigator(
+    {
+      App: AppDrawerNavigator,
+    },
+    {
+      initialRouteName: 'App',
+    }
+  )
+
+
 
 
 const styles = StyleSheet.create({
@@ -126,4 +139,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppContainer = createAppContainer(TabNavigator)
+const AppContainer = createAppContainer(StartSwitchNavigator)

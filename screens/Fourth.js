@@ -5,10 +5,8 @@ import { StyleSheet, Text,
   ImageBackground, Dimensions,
   SafeAreaView, Button, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Left, Right,Body} from 'native-base'
-import Swiper from 'react-native-swiper'
 import Category from '../components/Category'
 import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 class Fourth extends Component{
   componentWillMount(){

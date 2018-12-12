@@ -29,7 +29,7 @@ class EmailLogin extends Component {
                    </View>
 
                    <Button
-                   onPress={()=> this.props.navigation.navigate('home')}
+                   onPress={()=> this.props.navigation.navigate('Home')}
                    title="로그인"
                    textStyle={{color:'gray'}}
                    buttonStyle={{height:55, width:320, justifyContent:'center', alignItems:'center',backgroundColor: '#FDD835', marginTop:10, borderRadius:10}}/>
