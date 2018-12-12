@@ -19,14 +19,18 @@ import Second from './screens/Second'
 
 console.disableYellowBox = true;
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{flex:1, marginTop:30}}>
+        <AppContainer/>
       </View>
     );
   }
 }
+
+const tabBarHeight = 100
+
 
 const TabNavigator = createStackNavigator({
   welcome: {
@@ -75,8 +79,26 @@ const TabNavigator = createStackNavigator({
  header: null,
  tabBarVisible:true,
     }
-  },
-}),
+  }
+},{
+  tabBarOptions: {
+   showLabel: true,
+    style: {
+        backgroundColor: 'gray',
+        position: 'absolute',
+        Top:  Dimensions.get('window').height-tabBarHeight,
+        left:0,
+        right:0,
+        opacity:0.5,
+        marginTop:54
+    },
+    labelStyle:{
+      fontSize:15,
+      color:"white"
+    }
+  }
+ }
+),
   navigationOptions: {
       header: null
     },
@@ -92,11 +114,7 @@ const TabNavigator = createStackNavigator({
         }
       })
     }
-  },{
-      navigationOptions:{
-        tabBarVisible:false,
-      }
-    })
+  })
 
 
 const styles = StyleSheet.create({
@@ -108,4 +126,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createAppContainer(TabNavigator)
+const AppContainer = createAppContainer(TabNavigator)
