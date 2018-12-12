@@ -5,7 +5,7 @@ import { StyleSheet, Text,
   ImageBackground, Dimensions,
   SafeAreaView, Button, TouchableOpacity, Platform} from 'react-native';
 import { Container, Content, Header, Left, Right,Body} from 'native-base'
-import Category from './components/Category'
+import Category from '../components/Category'
 
 const Header_Maximum_Height = 40;
 const Header_Minimum_Height = 0;
@@ -49,20 +49,20 @@ class MainScreen extends Component {
                           <Left>
                          <Image
                                 style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_menu.png')}></Image>
+                                source={require('../assets/drawable-hdpi/assets_profile_empty.png')}></Image>
                          </Left>
                            <Image
                                 style={{height:30,width:140}}
-                                source={require('../assets/drawable-hdpi/assets_title_symbol_white.png')}></Image>
+                                source={require('../assets/drawable-hdpi/assets_profile_empty.png')}></Image>
                          <Body>
                          <Image
                                 style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_favorites.png')}></Image>
+                                source={require('../assets/drawable-hdpi/assets_profile_empty.png')}></Image>
                          </Body>
                           <Right>
                          <Image
                                 style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_search.png')}></Image>
+                                source={require('../assets/drawable-hdpi/assets_profile_empty.png')}></Image>
                          </Right>
                      </Animated.View>
                   </Animated.View>
