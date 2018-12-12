@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation'
+import {StyleSheet, Text, View,Dimensions} from 'react-native';
+import {createBottomTabNavigator, createAppContainer, createStackNavigator,createMaterialTopTabNavigator} from 'react-navigation'
 import AuthScreen from './screens/AuthScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 import DeckScreen from './screens/DeckScreen'
@@ -13,6 +13,8 @@ import FindPassWordScreen from './screens/FindPassWordScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import AgreementScreen from './screens/AgreementScreen'
 import MainScreen from './screens/MainScreen'
+import Second from './screens/Second'
+
 
 
 console.disableYellowBox = true;
@@ -58,7 +60,23 @@ const TabNavigator = createStackNavigator({
     },
   },
   home: {
-  screen: MainScreen,
+  screen: createMaterialTopTabNavigator({
+    Home:{
+    screen:MainScreen,
+    navigationOptions: {
+    header: null,
+    tabBarVisible:true,
+    activeTintColor: '#e91e63',
+  }
+ },
+ Second:{
+ screen: Second,
+ navigationOptions: {
+ header: null,
+ tabBarVisible:true,
+    }
+  },
+}),
   navigationOptions: {
       header: null
     },
@@ -66,12 +84,10 @@ const TabNavigator = createStackNavigator({
   main:{
     screen:createBottomTabNavigator({
           map:MapScreen,
-          deck:DeckScreen,
           review:{
             screen:createStackNavigator({
               review:ReviewScreen,
               settings:SettingsScreen,
-
           })
         }
       })

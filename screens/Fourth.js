@@ -3,69 +3,48 @@ import { StyleSheet, Text,
   View, ScrollView,
   Animated, Image,
   ImageBackground, Dimensions,
-  SafeAreaView, Button, TouchableOpacity, Platform} from 'react-native';
+  SafeAreaView, Button, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Left, Right,Body} from 'native-base'
+import Swiper from 'react-native-swiper'
 import Category from '../components/Category'
+import { createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-const Header_Maximum_Height = 40;
-const Header_Minimum_Height = 0;
+class Fourth extends Component{
+  componentWillMount(){
+   this.scrollY = new Animated.Value(0)
+   this.startHeaderHeight = 40
+   this.endHeaderHeight = 0
 
-class MainScreen extends Component {
-  constructor()
-  {
-      super();
-      this.AnimatedHeaderValue = new Animated.Value(0);
-  }
+   this.animatedHeaderHeight = this.scrollY.interpolate({
+     inputRange:[0,50],
+     outputRange:[this.startHeaderHeight, this.endHeaderHeight],
+     extrapolate:'clamp'
+     })
+ }
+
   render() {
-    const AnimateHeaderBackgroundColor = this.AnimatedHeaderValue.interpolate(
-          {
-              inputRange: [ 0, ( Header_Maximum_Height - Header_Minimum_Height )  ],
-              outputRange: [ '#009688', '#00BCD4' ],
-              extrapolate: 'clamp'
-          });
-
-    const AnimateHeaderHeight = this.AnimatedHeaderValue.interpolate(
-          {
-              inputRange: [ 0, ( Header_Maximum_Height - Header_Minimum_Height ) ],
-              outputRange: [ Header_Maximum_Height, Header_Minimum_Height ],
-              extrapolate: 'clamp'
-          });
-
-
 
           return (
           <SafeAreaView style={{flex:1}}>
-            <Animated.ScrollView
-                              scrollEventThrottle = { 16 }
-                              onScroll = { Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: this.AnimatedHeaderValue }}}]
-                          )}>
+            <View style={{flex:1}}>
+
+
+
+
+
+
+              <ScrollView style={{flex:1}}
+              scrollEventThrottle={16}
+              onScroll={Animated.event(
+                [
+                {nativeEvent:{contentOffset:{y:this.scrollY}}}
+                ]
+                )}>
 
                 <ImageBackground
                 style={{width:375, height:400}}
-                source={require('../assets/pizza.jpg')}>
-                <Animated.View style={{ backgroundColor:'gray',height:AnimateHeaderHeight,opacity:0.5, marginTop:0}}>
-                    <Animated.View style={{paddingLeft:10,paddingRight:10,flexDirection:'row', marginHorizontal:0, position:'relative'}}>
-                          <Left>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_menu.png')}></Image>
-                         </Left>
-                           <Image
-                                style={{height:30,width:140}}
-                                source={require('../assets/drawable-hdpi/assets_title_symbol_white.png')}></Image>
-                         <Body>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_favorites.png')}></Image>
-                         </Body>
-                          <Right>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_search.png')}></Image>
-                         </Right>
-                     </Animated.View>
-                  </Animated.View>
+                source={require('../assets/icecream.jpg')}>
                 </ImageBackground>
 
 
@@ -181,47 +160,23 @@ class MainScreen extends Component {
                   </View>
 
 
+                  <View style={{height:1000}}>
+                  </View>
+                  </ScrollView>
 
-                  </Animated.ScrollView>
-
+                  </View>
                   </SafeAreaView>
+
                   );
                 }
               }
 
-              const styles = StyleSheet.create({
-                container: {
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: '#F5FCFF',
-                  },
+export default Fourth
 
-                  HeaderStyle:
-                  {
-                  flex:1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  top: (Platform.OS == 'ios') ? 45 : 0,
-                  },
-                  HeaderInsideTextStyle:
-                  {
-                  color: "#fff",
-                  fontSize: 18,
-                  textAlign: 'center'
-                  },
-                  TextViewStyle:
-                  {
-                  textAlign: 'center',
-                  color: "#000",
-                  fontSize: 18,
-                  margin: 5,
-                  padding: 7,
-                  backgroundColor: "#ECEFF1"
-                  }
-                  });
-
-export default MainScreen
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center'
+  }
+})
