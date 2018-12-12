@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createBottomTabNavigator, createAppContainer, createStackNavigator} from 'react-navigation'
-
 import AuthScreen from './screens/AuthScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 import DeckScreen from './screens/DeckScreen'
@@ -11,6 +10,11 @@ import SettingsScreen from './screens/SettingsScreen'
 import ReviewScreen from './screens/ReviewScreen'
 import EmailLoginScreen from './screens/EmailLoginScreen'
 import FindPassWordScreen from './screens/FindPassWordScreen'
+import RegisterScreen from './screens/RegisterScreen'
+import AgreementScreen from './screens/AgreementScreen'
+import MainScreen from './screens/MainScreen'
+
+
 console.disableYellowBox = true;
 
 class App extends Component {
@@ -22,10 +26,43 @@ class App extends Component {
   }
 }
 
-const TabNavigator = createBottomTabNavigator({
-  welcome: WelcomeScreen,
-  email:EmailLoginScreen,
-  password:FindPassWordScreen,
+const TabNavigator = createStackNavigator({
+  welcome: {
+  screen: WelcomeScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
+  email: {
+  screen: EmailLoginScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
+  password: {
+  screen: FindPassWordScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
+  register: {
+  screen: RegisterScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
+  agree: {
+  screen: AgreementScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
+  home: {
+  screen: MainScreen,
+  navigationOptions: {
+      header: null
+    },
+  },
   main:{
     screen:createBottomTabNavigator({
           map:MapScreen,
@@ -41,7 +78,7 @@ const TabNavigator = createBottomTabNavigator({
     }
   },{
       navigationOptions:{
-        tabBarVisible:false
+        tabBarVisible:false,
       }
     })
 

@@ -6,13 +6,13 @@ import { Button } from 'react-native-elements'
 class FindPassWordScreen extends Component {
   render() {
     return (
-      <View style={{flex:1,justifyContent:'flex-start', alignItems:'center',backgroundColor:'green'}}>
+      <View style={{flex:1,justifyContent:'flex-start', alignItems:'center',backgroundColor:'white'}}>
         <View style={{height:100, width:'100%', backgroundColor:'white',justifyContent:'center'}}>
-          <Text style={{paddingLeft:20, paddingTop:20, fontSize: 20, fontWeight:'bold'}}> 이메일로 로그인하기 </Text>
+          <Text style={{paddingLeft:20, paddingTop:20, fontSize: 20, fontWeight:'bold'}}> 비밀번호 찾기 </Text>
         </View>
 
-        <View style={{width:'100%', height:250, backgroundColor:'red'}}>
-          <View style={{paddingLeft:20, height:150, width:150, backgroundColor:'blue'}}>
+        <View style={{width:'100%', height:250, backgroundColor:'white'}}>
+          <View style={{paddingLeft:20, height:150, width:150, backgroundColor:'white'}}>
             <Image source={require('../assets/drawable-hdpi/assets_findpassword.png')}
                    style={{flex:1}}/>
           </View>

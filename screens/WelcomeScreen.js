@@ -12,9 +12,9 @@ const ImageNames = {
 }
 
 const SLIDE_DATA =[
-  {image: ImageNames.welcome1, color:'#90CAF9', },
-  {image: ImageNames.welcome2, color:'#EA80FC'},
-  {image: ImageNames.welcome3, color:'#69F0AE'}
+  {image: ImageNames.welcome1, color:'transparent'},
+  {image: ImageNames.welcome2, color:'transparent'},
+  {image: ImageNames.welcome3, color:'transparent'}
 ]
 
 class WelcomeScreen extends Component {
@@ -37,9 +37,10 @@ class WelcomeScreen extends Component {
           raised
           title="카카오톡 로그인"
           textStyle={{color:'black'}}
-          buttonStyle={[styles.buttonStyle,{justifyContent:'center', alignItems:'center',backgroundColor: '#FFFF00'}]}/>
+          buttonStyle={[styles.buttonStyle,{justifyContent:'center', alignItems:'center',backgroundColor: '#f9de4b'}]}/>
 
         <Button
+          onPress={()=>this.props.navigation.navigate('email') }
           raised
           title="이메일로 로그인하기"
           textStyle={{color:'white'}}
@@ -49,7 +50,7 @@ class WelcomeScreen extends Component {
         <View style={{width:SCREEN_WIDTH, height:50, backgroundColor:'white',justifyContent:'space-between', alignItems:'center', flexDirection:'row',padding:10}}>
           <Text> 아직 회원이 아니세요?</Text>
 
-          <TouchableOpacity onPress={()=> this.props.navigation.navigate('email')}>
+          <TouchableOpacity onPress={()=> this.props.navigation.navigate('register')}>
             <Text> 회원가입</Text>
           </TouchableOpacity>
         </View>
