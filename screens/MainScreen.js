@@ -65,9 +65,14 @@ class MainScreen extends Component {
                                 source={require('../assets/drawable-hdpi/ic_favorites.png')}></Image>
                          </Body>
                           <Right>
+
+                        <TouchableOpacity
+                            style={{marginTop:0}}
+                            onPress={()=>this.props.navigation.navigate('search')}>
                          <Image
                                 style={{height:20,width:20}}
                                 source={require('../assets/drawable-hdpi/ic_search.png')}></Image>
+                        </TouchableOpacity>
                          </Right>
                      </Animated.View>
                   </Animated.View>

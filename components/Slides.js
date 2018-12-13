@@ -24,7 +24,6 @@ class Slides extends Component {
       <Image source={slide.image}
              style={{height:400, width:SCREEN_WIDTH}}/>
         <Text style={styles.textStyle}>{slide.text}</Text>
-        {this.renderLastSlide(index)}
       </View>
      )
     })
