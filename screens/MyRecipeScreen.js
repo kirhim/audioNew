@@ -1,5 +1,6 @@
 import React,  {Component} from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Image, Switch} from 'react-native'
+import { Icon } from 'react-native-elements'
 
 class MyRecipeScreen extends Component {
 
@@ -8,7 +9,7 @@ class MyRecipeScreen extends Component {
     return (
       <View style={{flex:1, backgroundColor:'#F5F5F5'}}>
 
-        <View style={{height:80, width:'100%', backgroundColor:'#f9de4b', flexDirection:'row',alignItems:'center'}}>
+        <View style={{height:80, width:'100%', backgroundColor:'#f9de4b', flexDirection:'row',alignItems:'center', justifyContent:'space-between'}}>
           <TouchableOpacity
             style={{marginTop:0}}
             onPress={()=>this.props.navigation.openDrawer()}>
@@ -16,8 +17,17 @@ class MyRecipeScreen extends Component {
                   style={{ marginLeft:20,height:20,width:20}}
                   source={require('../assets/drawable-hdpi/ic_menu_brown.png')}></Image>
           </TouchableOpacity>
-          <Text style={{paddingLeft:30, fontSize:20, fontWeight:'bold'}}> 나의 레시피 관리 </Text>
+          <Text style={{paddingLeft:25, fontSize:20, fontWeight:'bold'}}> 나의 레시피 관리 </Text>
+
+          <TouchableOpacity
+            style={{marginTop:0}}
+            onPress={()=>this.props.navigation.navigate('make')}>
+          <Icon containerStyle={{marginRight:20}} name='add' />
+          </TouchableOpacity>
         </View>
+
+
+
 
       <View style={{justifyContent:'flex-start', alignItems:'center'}}>
         <View style={styles.listStyle}>

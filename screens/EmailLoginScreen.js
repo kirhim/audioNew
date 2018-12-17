@@ -1,7 +1,7 @@
 import React,  {Component} from 'react'
 import {View, Text, ImageBackground, Dimensions, TextInput,TouchableOpacity, Image} from 'react-native'
 const SCREEN_WIDTH = Dimensions.get('window').width
-import { Button } from 'react-native-elements'
+import { Button, Icon } from 'react-native-elements'
 
 
 class EmailLogin extends Component {
@@ -16,8 +16,12 @@ class EmailLogin extends Component {
 
              <View style={{flex:1,justifyContent:'flex-start', alignItems:'center'}}>
 
-                   <View style={{height: 55, width:'100%',justifyContent:'center', alignItems:'center', backgroundColor:'white', marginBottom:30, marginTop:10}}>
-                     <Text style={{fontSize: 20, fontWeight:'bold'}}> 이메일로 로그인하기 </Text>
+                   <View style={{height: 55, width:340, alignItems:'center', backgroundColor:'white', marginBottom:30, marginTop:10, flexDirection:'row'}}>
+                   <TouchableOpacity onPress={()=>this.props.navigation.navigate('welcome')}>
+                     <Icon name="close"/>
+                  </TouchableOpacity>
+
+                     <Text style={{marginLeft:70,fontSize: 20, fontWeight:'bold'}}> 이메일로 로그인하기 </Text>
                    </View>
 
                    <View style={{paddingLeft:20,height:55, width:320, backgroundColor:'#E0E0E0', borderRadius:10,justifyContent:'flex-start', alignItems:'center',flexDirection:'row'}}>

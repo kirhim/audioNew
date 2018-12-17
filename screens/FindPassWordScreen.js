@@ -1,14 +1,19 @@
 import React,  {Component} from 'react'
-import {View, Text, TextInput, Image} from 'react-native'
-import { Button } from 'react-native-elements'
+import {View, Text, TextInput, Image,TouchableOpacity} from 'react-native'
+import { Button, Icon } from 'react-native-elements'
 
 
 class FindPassWordScreen extends Component {
   render() {
     return (
       <View style={{flex:1,justifyContent:'flex-start', alignItems:'center',backgroundColor:'white'}}>
-        <View style={{height:100, width:'100%', backgroundColor:'white',justifyContent:'center'}}>
-          <Text style={{paddingLeft:20, paddingTop:20, fontSize: 20, fontWeight:'bold'}}> 비밀번호 찾기 </Text>
+        <View style={{height:100, width:'100%', backgroundColor:'white', justifyContent:'flex-start', flexDirection:'row'}}>
+
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('email')}>
+        <Icon containerStyle={{marginTop:25, marginLeft:20}} name="close"/>
+        </TouchableOpacity>
+          <Text style={{paddingLeft:20, paddingTop:25, fontSize: 20, fontWeight:'bold'}}> 비밀번호 찾기 </Text>
+
         </View>
 
         <View style={{width:'100%', height:250, backgroundColor:'white'}}>

@@ -8,7 +8,7 @@ class AgreementScreen extends Component {
       <View style={{height: 55, width:'100%',justifyContent:'space-around', alignItems:'center', backgroundColor:'white', marginBottom:30, marginTop:10, flexDirection:'row'}}>
           <TouchableOpacity
           style={{marginTop:20}}
-          onPress={()=> this.props.navigation.navigate('welcome')}>
+          onPress={()=> this.props.navigation.navigate('register')}>
           <Image source={require('../assets/drawable-hdpi/ic_close_gray.png')}
                  style={{marginLeft:20, marginBottom:20,height:30, width:30}}/>
           </TouchableOpacity>

@@ -27,6 +27,9 @@ import BoardScreen from './screens/BoardScreen'
 import LogoutScreen from './screens/LogoutScreen'
 import SearchScreen from './screens/SearchScreen'
 import MyProfileScreen from './screens/MyProfileScreen'
+import ProfileEditScreen from './screens/ProfileEditScreen'
+import MakeRecipeScreen from './screens/MakeRecipeScreen'
+import CookingRegisterScreen from './screens/CookingRegisterScreen'
 import { Icon, Container, Content, Header, Left, Body, Right, List, ListItem} from 'native-base'
 
 
@@ -126,6 +129,24 @@ const AppStackNavigator = createStackNavigator({
       header: null
     }
   },
+  edit: {
+  screen: ProfileEditScreen,
+  navigationOptions: {
+      header: null
+    }
+  },
+  make:{
+  screen: MakeRecipeScreen,
+  navigationOptions: {
+      header: null
+    }
+  },
+  cook:{
+  screen: CookingRegisterScreen,
+  navigationOptions: {
+      header: null
+    }
+  },
   Home: {
   screen: createMaterialTopTabNavigator({
     Home:{
@@ -193,6 +214,7 @@ const AppStackNavigator = createStackNavigator({
   const StartSwitchNavigator = createSwitchNavigator(
     {
       App: AppDrawerNavigator,
+      ki: CookingRegisterScreen
     },
     {
       initialRouteName: 'App',

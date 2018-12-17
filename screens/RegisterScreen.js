@@ -1,7 +1,7 @@
 import React,  {Component} from 'react'
 import {View, Text, Image, Dimensions, TextInput, SafeAreaView,TouchableOpacity} from 'react-native'
 const SCREEN_WIDTH = Dimensions.get('window').width
-import { Button, CheckBox } from 'react-native-elements'
+import { Button, CheckBox, Icon } from 'react-native-elements'
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -20,7 +20,11 @@ class RegisterScreen extends Component {
     return (
     <SafeAreaView style={{flex:1}}>
       <View style={{flex:1}}>
-      <View style={{width:'100%', height:70, justifyContent:'flex-start', alignItems:'flex-start',backgroundColor:'white'}}>
+      <View style={{width:'100%', height:70, justifyContent:'flex-start', alignItems:'flex-start',backgroundColor:'white', flexDirection:'row'}}>
+      <TouchableOpacity
+      onPress={()=> this.props.navigation.navigate('welcome')}>
+      <Icon containerStyle={{marginLeft:20, marginTop:20}} name="close"/>
+      </TouchableOpacity>
         <Text style={{paddingLeft:20, paddingTop:20, fontSize: 20, fontWeight:'bold'}}> 회원가입 </Text>
       </View>
 
@@ -30,7 +34,7 @@ class RegisterScreen extends Component {
       </View>
 
       <View style={{marginTop:20, alignItems:'center'}}>
-      <View style={{paddingLeft:20, width:320, height:60, backgroundColor:'white', borderRadius:10, justifyContent:'center'}}>
+      <View style={{paddingLeft:20, width:320, height:60, backgroundColor:'#EEEEEE', borderRadius:10, justifyContent:'center'}}>
         <TextInput placeholder='닉네임 입력'/>
       </View>
       </View>
