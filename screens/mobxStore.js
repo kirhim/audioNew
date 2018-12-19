@@ -14,48 +14,6 @@ export class MemberStore {
   @observable memberOS = undefined
 
 
-  updateMemberInfoToServer = () => {
-
-    //console.log(this.memberObject);
-
-    fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.memberObject)
-        })
-        .then(response => {
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.indexOf("application/json") !== -1) {
-            return response.json().then(resJSON => {
-              // process your JSON data further
-              if(resJSON.result === "fail")
-              {
-                  //alert(responseJson.error);
-                  console.log("사용자 정보 업데이트 오류")
-              }
-              else
-              {
-                  //trunk.updateStore(store)
-                  //Keyboard.dismiss();
-                  console.log("사용자 정보 업데이트 완료")
-                  return resJSON;
-
-              }
-            });
-          } else {
-            return response.text().then(text => {
-              // this is text, do something with it
-              console.log("API 서버 호출 오류 : " + text)
-            });
-          }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-  };
-
 
   /*
   addListItem (item) {

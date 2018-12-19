@@ -2,6 +2,7 @@ import React,  {Component} from 'react'
 import {View, Text, Image, Dimensions, TextInput, SafeAreaView,TouchableOpacity} from 'react-native'
 const SCREEN_WIDTH = Dimensions.get('window').width
 import { Button, CheckBox, Icon } from 'react-native-elements'
+import { store } from './mobxStore'
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -10,7 +11,24 @@ class RegisterScreen extends Component {
     this.state ={
     service1:false,
     service2:false,
+    userName: '',
+    email: '',
+    password: '',
     }
+  }
+
+  componentWillMount() {
+    //mobX 스토어에 견적서 오브젝트 리셋
+    store.memberObject = {};
+  }
+
+  onNext = () => {
+    //store에 state 내용 저장
+    store.memberObject.userName = this.state.userName;
+    store.memberObject.email = this.state.email;
+    store.memberObject.password = this.state.password;
+    this.props.navigation.navigate('Home');
+
   }
 
   render() {
@@ -35,19 +53,28 @@ class RegisterScreen extends Component {
 
       <View style={{marginTop:20, alignItems:'center'}}>
       <View style={{paddingLeft:20, width:320, height:60, backgroundColor:'#EEEEEE', borderRadius:10, justifyContent:'center'}}>
-        <TextInput placeholder='닉네임 입력'/>
+        <TextInput
+        value={this.state.userName}
+        placeholder='닉네임 입력'
+        onChangeText={(text)=> this.setState({userName:text})}/>
       </View>
       </View>
 
       <View style={{marginTop:20, alignItems:'center'}}>
       <View style={{paddingLeft:20, width:320, height:60, backgroundColor:'#EEEEEE', borderRadius:10, justifyContent:'center'}}>
-        <TextInput placeholder='Email 입력'/>
+        <TextInput
+        value={this.state.email}
+        placeholder='Email 입력'
+        onChangeText={(text)=> this.setState({email:text})}/>
       </View>
       </View>
 
       <View style={{marginTop:20, alignItems:'center'}}>
       <View style={{paddingLeft:20, width:320, height:60, backgroundColor:'#EEEEEE', borderRadius:10, justifyContent:'center'}}>
-        <TextInput placeholder='비밀번호'/>
+        <TextInput
+        value={this.state.password}
+        placeholder='비밀번호'
+        onChangeText={(text)=> this.setState({password:text})}/>
       </View>
       </View>
 
@@ -77,7 +104,7 @@ class RegisterScreen extends Component {
         title='개인정보 수집 및 이용 동의'
         containerStyle={{backgroundColor:'transparent', borderWidth:0}}
         checked={this.state.service2}
-        onPress={() => this.setState({service2: !service2})}
+        onPress={() => this.setState({service2: !service2}), console.log(store.memberObject)}
       />
 
       <TouchableOpacity
@@ -87,6 +114,7 @@ class RegisterScreen extends Component {
       </View>
 
       <Button
+        onPress={this.onNext}
         title="카카오톡 로그인"
         textStyle={{color:'black'}}
         buttonStyle={{justifyContent:'center', alignItems:'center',backgroundColor: '#f9de4b', borderRadius:10}}/>
