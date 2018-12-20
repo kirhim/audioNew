@@ -2,7 +2,10 @@ import React,  {Component} from 'react'
 import {View, Text, Image, Dimensions, TextInput, SafeAreaView,TouchableOpacity} from 'react-native'
 const SCREEN_WIDTH = Dimensions.get('window').width
 import { Button, CheckBox, Icon } from 'react-native-elements'
+
+
 import { store } from './mobxStore'
+var config = require('./app_config.json');
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -20,14 +23,58 @@ class RegisterScreen extends Component {
   componentWillMount() {
     //mobX 스토어에 견적서 오브젝트 리셋
     store.memberObject = {};
+    console.log(store.memberObject,'memberObject')
   }
 
-  onNext = () => {
+  postApi(){
     //store에 state 내용 저장
     store.memberObject.userName = this.state.userName;
     store.memberObject.email = this.state.email;
     store.memberObject.password = this.state.password;
-    this.props.navigation.navigate('Home');
+
+    if(store.memberObject.userName === null)
+      {
+        alert('닉네임을 입력해주세요.')
+        return;
+      }
+      if(store.memberObject.password === null)
+      {
+        alert('비밀번호를 입력해주세요')
+        return;
+      }
+      if(store.memberObject.email === null)
+      {
+        alert('이메일을 입력해주세요')
+        return;
+      }
+
+
+    const url = config.api_server_url + 'members';
+
+    let bodyData = {
+      memberinfo: store.memberObject
+    }
+
+    console.log(JSON.stringify(bodyData),'bodyData');
+
+
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(bodyData), // data can be `string` or {object}!
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+      .then((response) => {
+        //console.log('Success:', JSON.stringify(response))
+        alert('프로필 정보 전송완료.')
+        this.props.navigation.navigate('Home');
+
+      })
+      .catch((error) => {
+        console.error('Error:', (error))
+      })
 
   }
 
@@ -114,7 +161,7 @@ class RegisterScreen extends Component {
       </View>
 
       <Button
-        onPress={this.onNext}
+      onPress={() => {this.postApi()}}
         title="카카오톡 로그인"
         textStyle={{color:'black'}}
         buttonStyle={{justifyContent:'center', alignItems:'center',backgroundColor: '#f9de4b', borderRadius:10}}/>

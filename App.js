@@ -30,8 +30,12 @@ import MyProfileScreen from './screens/MyProfileScreen'
 import ProfileEditScreen from './screens/ProfileEditScreen'
 import MakeRecipeScreen from './screens/MakeRecipeScreen'
 import CookingRegisterScreen from './screens/CookingRegisterScreen'
-import { Icon, Container, Content, Header, Left, Body, Right, List, ListItem} from 'native-base'
+import CustomDrawerContentComponent from './screens/CustomDrawerContentComponent'
 
+
+import { Icon, Container, Content, Header, Left, Body, Right, List, ListItem} from 'native-base'
+import { store } from './screens/mobxStore'
+var config = require('./screens/app_config.json');
 
 console.disableYellowBox = true;
 
@@ -46,44 +50,7 @@ export default class App extends Component {
   }
 }
 
-const CustomDrawerContentComponent = (props)=> {
-  return(
-  <SafeAreaView style={{flex:1}}>
-    <View style={{ height:100, backgroundColor: 'white' }}>
-      <Image
-            style={{marginLeft:20,height:100,width:100,borderRadius:50}}
-            source={require('./assets/puppy.jpg')}/>
-    </View>
 
-    <View style={{margin:20}}>
-    <TouchableOpacity
-        style={{marginTop:0,flexDirection:'row', alignItems:'center'}}
-        onPress={()=> {props.navigation.navigate('profile')}}>
-      <Text style={{fontSize:18, fontWeight:'bold'}}>백주부</Text>
-
-      <Image
-            style={{height:12,width:12}}
-            source={require('./assets/drawable-hdpi/ic_arrow_depth.png')}/>
-    </TouchableOpacity>
-    </View>
-
-    <View style={{flexDirection:'row', marginLeft:20, alignItems:'center'}}>
-      <Text>구독자</Text>
-      <Image
-            style={{height:12,width:12,marginLeft:5, marginRight:5, }}
-            source={require('./assets/drawable-hdpi/ic_follower.png')}/>
-      <Text style={{fontWeight:'bold', color:'#f9de4b'}}>200</Text>
-
-      <Text style={{marginLeft:10}}> 총 조회수 </Text>
-      <Text style={{fontWeight:'bold', color:'#f9de4b'}}>1,849</Text>
-    </View>
-
-    <ScrollView style={{borderColor:'gray',borderTopWidth:0.3, paddingTop:20}}>
-      <DrawerItems {...props}/>
-    </ScrollView>
-  </SafeAreaView>
-  )
-}
 
 const tabBarHeight = 100
 const AppStackNavigator = createStackNavigator({
@@ -123,12 +90,6 @@ const AppStackNavigator = createStackNavigator({
       header: null
     }
   },
-  profile: {
-  screen: MyProfileScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
   edit: {
   screen: ProfileEditScreen,
   navigationOptions: {
@@ -147,41 +108,29 @@ const AppStackNavigator = createStackNavigator({
       header: null
     }
   },
+
+
+
   Home: {
-  screen: createMaterialTopTabNavigator({
-    Home:{
-    screen:MainScreen,
-    navigationOptions: {
-    header: null,
-    tabBarVisible:true,
-    activeTintColor: '#e91e63',
-  }
- },
- Second:{
- screen: Second,
- navigationOptions: {
- header: null,
- tabBarVisible:true,
-    }
-  }
-},{
-  tabBarOptions: {
-   showLabel: true,
+  screen: createDrawerNavigator({
+    Home: MainScreen,
+    공지사항: BoardScreen,
+    알람설정: NotificationScreen,
+    나의레시피관리:MyRecipeScreen,
+    구독하는요리사목록:MySubScriptionScreen,
+    로그아웃:LogoutScreen,
+    profile:MyProfileScreen
+  },{
+  contentComponent:CustomDrawerContentComponent,
+  contentOptions: {
+    activeBackgroundColor:'#f9de4b',
+    activeTintColor:'black',
+    itemsContainerStyle:{margin:5},
     style: {
-        backgroundColor: 'gray',
-        position: 'absolute',
-        Top:  Dimensions.get('window').height-tabBarHeight,
-        left:0,
-        right:0,
-        opacity:0.5,
-        marginTop:54
-    },
-    labelStyle:{
-      fontSize:15,
-      color:"white"
+      marginVertical: 100,
     }
   }
- }),
+}),
   navigationOptions: {
       header: null
     }
@@ -189,7 +138,7 @@ const AppStackNavigator = createStackNavigator({
   })
 
   const AppDrawerNavigator = createDrawerNavigator({
-    홈: AppStackNavigator,
+    Home: AppStackNavigator,
     공지사항: BoardScreen,
     알람설정: NotificationScreen,
     나의레시피관리:MyRecipeScreen,
@@ -207,22 +156,15 @@ const AppStackNavigator = createStackNavigator({
   }
 })
 
-
-
-
-
   const StartSwitchNavigator = createSwitchNavigator(
     {
-      App: AppDrawerNavigator,
+      App: AppStackNavigator,
       ki: CookingRegisterScreen
     },
     {
       initialRouteName: 'App',
     }
   )
-
-
-
 
 const styles = StyleSheet.create({
   container: {

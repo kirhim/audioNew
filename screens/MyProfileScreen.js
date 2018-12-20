@@ -1,5 +1,11 @@
 import React,  {Component} from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Image, Dimensions,ScrollView} from 'react-native'
+import {createBottomTabNavigator,
+        createAppContainer,
+        createStackNavigator,
+        createMaterialTopTabNavigator,
+        createDrawerNavigator,
+        createSwitchNavigator, DrawerItems} from 'react-navigation'
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 class MyProfileScreen extends Component {

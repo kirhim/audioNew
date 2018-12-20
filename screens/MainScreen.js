@@ -4,13 +4,29 @@ import { StyleSheet, Text,
   Animated, Image,
   ImageBackground, Dimensions,
   SafeAreaView, Button, TouchableOpacity, Platform} from 'react-native';
+  import {createBottomTabNavigator,
+          createAppContainer,
+          createStackNavigator,
+          createMaterialTopTabNavigator,
+          createDrawerNavigator,
+          createSwitchNavigator, DrawerItems} from 'react-navigation'
 import { Container, Content, Header, Left, Right,Body} from 'native-base'
 import Category from '../components/Category'
+import { store } from './mobxStore'
+var config = require('./app_config.json');
+
+
 
 const Header_Maximum_Height = 40;
 const Header_Minimum_Height = 0;
 
 class MainScreen extends Component {
+  componentWillMount() {
+
+
+    console.log(store.memberObject.userName, 'initail userName')
+
+  }
   constructor()
   {
       super();

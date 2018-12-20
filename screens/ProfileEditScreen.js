@@ -1,4 +1,10 @@
 import React,  {Component} from 'react'
+import {createBottomTabNavigator,
+        createAppContainer,
+        createStackNavigator,
+        createMaterialTopTabNavigator,
+        createDrawerNavigator,
+        createSwitchNavigator, DrawerItems} from 'react-navigation'
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native'
 
 class ProfileEditScreen extends Component {

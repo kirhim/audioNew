@@ -52,6 +52,7 @@ class WelcomeScreen extends Component {
         this.props.navigation.navigate('App');
       }
     })
+    console.log(store.memberObject, 'initail memberObject')
 
   }
 
@@ -76,7 +77,7 @@ class WelcomeScreen extends Component {
         return response.json();
       })
       .then((responseJson) => {
-        if (responseJson.result === "fail") {
+        if (responseJson.error.includes("No user")) {
 
           //1-2. 만약 토큰이 서버DB에 존재하지 않는다면, 신규 회원이므로, 신규회원 가입 절차를 진행한다.
           //1-2-1. 페이스북 토큰을 store에 저장한다.
@@ -135,8 +136,6 @@ class WelcomeScreen extends Component {
             this.getMemberInfoFromServer(data.userID);
           }
         )
-
-
         //this.props.navigation.navigate('PhoneCode')
       }
 
@@ -171,7 +170,12 @@ class WelcomeScreen extends Component {
         </View>
         <View style={{width:SCREEN_WIDTH, height:50, backgroundColor:'white',justifyContent:'space-between', alignItems:'center', flexDirection:'row',padding:10}}>
           <Text> 아직 회원이 아니세요?</Text>
+
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('register')}>
+          <Text> 회원가입</Text>
+        </TouchableOpacity>
         </View>
+
       </View>
     )
   }
