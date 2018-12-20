@@ -10,7 +10,7 @@ class MakeRecipeScreen extends Component {
         <View style={{height:80, width:'100%', backgroundColor:'transparent', flexDirection:'row',alignItems:'flex', justifyContent:'flex-start', alignItems:'center',}}>
           <TouchableOpacity
             style={{marginTop:0}}
-            onPress={()=>this.props.navigation.navigate('profile')}>
+            onPress={()=>this.props.navigation.navigate('Home')}>
            <Icon containerStyle={{marginLeft:20,height:20,width:20}} name='close' />
 
           </TouchableOpacity>

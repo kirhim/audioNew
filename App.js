@@ -109,27 +109,58 @@ const AppStackNavigator = createStackNavigator({
     }
   },
 
-
-
-  Home: {
-  screen: createDrawerNavigator({
-    Home: MainScreen,
-    공지사항: BoardScreen,
-    알람설정: NotificationScreen,
-    나의레시피관리:MyRecipeScreen,
-    구독하는요리사목록:MySubScriptionScreen,
-    로그아웃:LogoutScreen,
-    profile:MyProfileScreen
-  },{
-  contentComponent:CustomDrawerContentComponent,
-  contentOptions: {
-    activeBackgroundColor:'#f9de4b',
-    activeTintColor:'black',
-    itemsContainerStyle:{margin:5},
-    style: {
-      marginVertical: 100,
-    }
-  }
+Home: {
+ screen: createMaterialTopTabNavigator({
+   Home:{
+   screen:createDrawerNavigator({
+     Home: MainScreen,
+     공지사항: BoardScreen,
+     알람설정: NotificationScreen,
+     나의레시피관리:MyRecipeScreen,
+     구독하는요리사목록:MySubScriptionScreen,
+     로그아웃:LogoutScreen,
+     profile:MyProfileScreen
+   },{
+   contentComponent:CustomDrawerContentComponent,
+   contentOptions: {
+     activeBackgroundColor:'#f9de4b',
+     activeTintColor:'black',
+     itemsContainerStyle:{margin:5},
+     style: {
+       marginVertical: 100,
+     }
+   }
+   }),
+   navigationOptions: {
+   header: null,
+   tabBarVisible:true,
+   activeTintColor: '#e91e63',
+ }
+},
+Second:{
+screen: Second,
+navigationOptions: {
+header: null,
+tabBarVisible:true,
+   }
+ }
+},{
+ tabBarOptions: {
+  showLabel: true,
+   style: {
+       backgroundColor: 'gray',
+       position: 'absolute',
+       Top:  Dimensions.get('window').height-tabBarHeight,
+       left:0,
+       right:0,
+       opacity:0.5,
+       marginTop:54
+   },
+   labelStyle:{
+     fontSize:15,
+     color:"white"
+   }
+ }
 }),
   navigationOptions: {
       header: null
@@ -137,8 +168,51 @@ const AppStackNavigator = createStackNavigator({
    }
   })
 
-  const AppDrawerNavigator = createDrawerNavigator({
-    Home: AppStackNavigator,
+const AppTapNavigator = createMaterialTopTabNavigator({
+  Home: {
+   screen: createMaterialTopTabNavigator({
+   Home:{
+   screen:MainScreen,
+   navigationOptions: {
+   header: null,
+   tabBarVisible:true,
+   activeTintColor: '#e91e63',
+ }
+},
+Second:{
+screen: Second,
+navigationOptions: {
+header: null,
+tabBarVisible:true,
+   }
+ }
+},{
+ tabBarOptions: {
+  showLabel: true,
+   style: {
+       backgroundColor: 'gray',
+       position: 'absolute',
+       Top:  Dimensions.get('window').height-tabBarHeight,
+       left:0,
+       right:0,
+       opacity:0.5,
+       marginTop:54
+   },
+   labelStyle:{
+     fontSize:15,
+     color:"white"
+   }
+ }
+}),
+  navigationOptions: {
+      header: null
+    }
+   }
+})
+
+
+const AppDrawerNavigator = createDrawerNavigator({
+    Home: MainScreen,
     공지사항: BoardScreen,
     알람설정: NotificationScreen,
     나의레시피관리:MyRecipeScreen,
@@ -156,7 +230,7 @@ const AppStackNavigator = createStackNavigator({
   }
 })
 
-  const StartSwitchNavigator = createSwitchNavigator(
+const StartSwitchNavigator = createSwitchNavigator(
     {
       App: AppStackNavigator,
       ki: CookingRegisterScreen
@@ -165,6 +239,9 @@ const AppStackNavigator = createStackNavigator({
       initialRouteName: 'App',
     }
   )
+
+
+
 
 const styles = StyleSheet.create({
   container: {
