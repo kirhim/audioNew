@@ -49,7 +49,7 @@ class WelcomeScreen extends Component {
       // do any staff with loaded store
       if (store.memberObject.idx != undefined) {
         //alert('자동 로그인 합니다.');
-        this.props.navigation.navigate('App');
+        this.props.navigation.navigate('Home');
       }
     })
     console.log(store.memberObject, 'initail memberObject')
@@ -120,13 +120,9 @@ class WelcomeScreen extends Component {
     //this.props.navigation.navigate('Sub')
   }
 
-  onFacebookLogin(error, result) {
+  onFacebookLogin(error) {
 
-      if (error) {
-        console.log("login has error: " + result.error);
-      } else if (result.isCancelled) {
-        console.log("login is cancelled.");
-      } else {
+
         AccessToken.getCurrentAccessToken().then(
           (data) => {
             console.log('facebook login success!')
@@ -139,7 +135,7 @@ class WelcomeScreen extends Component {
         //this.props.navigation.navigate('PhoneCode')
       }
 
-    }
+
 
   render() {
     return (

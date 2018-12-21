@@ -55,60 +55,65 @@ export default class App extends Component {
 const tabBarHeight = 100
 const AppStackNavigator = createStackNavigator({
   welcome: {
-  screen: WelcomeScreen,
-  navigationOptions: {
-      header: null
-    },
-  },
-  email: {
-  screen: EmailLoginScreen,
-  navigationOptions: {
-      header: null
-    },
-  },
-  password: {
-  screen: FindPassWordScreen,
-  navigationOptions: {
-      header: null
-    },
-  },
-  register: {
-  screen: RegisterScreen,
-  navigationOptions: {
-      header: null
-    },
-  },
-  agree: {
-  screen: AgreementScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
-  search: {
-  screen: SearchScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
-  edit: {
-  screen: ProfileEditScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
-  make:{
-  screen: MakeRecipeScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
-  cook:{
-  screen: CookingRegisterScreen,
-  navigationOptions: {
-      header: null
-    }
-  },
-
+ screen: WelcomeScreen,
+ navigationOptions: {
+     header: null
+   },
+ },
+ email: {
+ screen: EmailLoginScreen,
+ navigationOptions: {
+     header: null
+   },
+ },
+ password: {
+ screen: FindPassWordScreen,
+ navigationOptions: {
+     header: null
+   },
+ },
+ register: {
+ screen: RegisterScreen,
+ navigationOptions: {
+     header: null
+   },
+ },
+ agree: {
+ screen: AgreementScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
+ search: {
+ screen: SearchScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
+ profile: {
+ screen: MyProfileScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
+ edit: {
+ screen: ProfileEditScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
+ make:{
+ screen: MakeRecipeScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
+ cook:{
+ screen: CookingRegisterScreen,
+ navigationOptions: {
+     header: null
+   }
+ },
 Home: {
  screen: createMaterialTopTabNavigator({
    Home:{
