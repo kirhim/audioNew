@@ -1,219 +1,99 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text,
-  View, ScrollView,
-  Animated, Image,
-  ImageBackground, Dimensions,
-  SafeAreaView, Button, TouchableOpacity, Platform} from 'react-native';
-  import {createBottomTabNavigator,
-          createAppContainer,
-          createStackNavigator,
-          createMaterialTopTabNavigator,
-          createDrawerNavigator,
-          createSwitchNavigator, DrawerItems} from 'react-navigation'
-import { Container, Content, Header, Left, Right,Body} from 'native-base'
+import React, {Component} from "react";
+import {Animated, Dimensions, Platform, Text, View, StyleSheet } from 'react-native';
+import {Body, Header, List, ListItem as Item, ScrollableTab, Tab, Tabs, Title} from "native-base";
+import Second from './Second'
+
 import Category from '../components/Category'
 import { store } from './mobxStore'
 var config = require('./app_config.json');
 
-
-
-const Header_Maximum_Height = 40;
-const Header_Minimum_Height = 0;
+const NAVBAR_HEIGHT = 69;
+const {width: SCREEN_WIDTH} = Dimensions.get("window");
+const COLOR = "rgb(45,181,102)";
+const TAB_PROPS = {
+  tabStyle: {width: SCREEN_WIDTH / 2, backgroundColor: COLOR},
+  activeTabStyle: {width: SCREEN_WIDTH / 2, backgroundColor: COLOR},
+  textStyle: {color: "white"},
+  activeTextStyle: {color: "white"}
+};
 
 class MainScreen extends Component {
-  componentWillMount() {
+  scroll = new Animated.Value(0);
+    headerY;
 
+    constructor(props) {
+      super(props);
+      this.headerY = Animated.multiply(Animated.diffClamp(this.scroll, 0, NAVBAR_HEIGHT), -1);
+    }
 
-    console.log(store.memberObject.userName, 'initail userName')
-
-  }
-  constructor()
-  {
-      super();
-      this.AnimatedHeaderValue = new Animated.Value(0);
-  }
   render() {
-    const AnimateHeaderBackgroundColor = this.AnimatedHeaderValue.interpolate(
-          {
-              inputRange: [ 0, ( Header_Maximum_Height - Header_Minimum_Height )  ],
-              outputRange: [ '#009688', '#00BCD4' ],
-              extrapolate: 'clamp'
-          });
+    const tabContent = (
+        <Second/>);
 
-    const AnimateHeaderHeight = this.AnimatedHeaderValue.interpolate(
-          {
-              inputRange: [ 0, ( Header_Maximum_Height - Header_Minimum_Height ) ],
-              outputRange: [ Header_Maximum_Height, Header_Minimum_Height ],
-              extrapolate: 'clamp'
-          });
+            const tabContent2 = (
+              <List>{new Array(20).fill(null).map((_, i) => <Item
+                key={i}><Text>Itemgrwgwrgg {i}</Text></Item>)}</List>);
 
 
-
-          return (
-          <SafeAreaView style={{flex:1}}>
+        const tabY = Animated.add(this.scroll, this.headerY);
+        return (
+          <View>
+            {Platform.OS === "ios" &&
+            <View style={{backgroundColor: COLOR, height: 20, width: "100%", position: "absolute", zIndex: 2}}/>}
+            <Animated.View style={{
+              width: "100%",
+              position: "absolute",
+              transform: [{
+                translateY: this.headerY
+              }],
+              elevation: 0,
+              flex: 1,
+              zIndex: 1,
+              backgroundColor: COLOR
+            }}>
+              <Header style={{backgroundColor: "gray"}} hasTabs>
+                <Body>
+                <Title>
+                  <Text style={{color: "white"}}>
+                    Collapsing Navbar
+                  </Text>
+                </Title>
+                </Body>
+              </Header>
+            </Animated.View>
             <Animated.ScrollView
-                              scrollEventThrottle = { 16 }
-                              onScroll = { Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: this.AnimatedHeaderValue }}}]
-                          )}>
-
-                <ImageBackground
-                style={{width:375, height:400}}
-                source={require('../assets/pizza.jpg')}>
-                <Animated.View style={{ backgroundColor:'gray',height:AnimateHeaderHeight,opacity:0.5, marginTop:0}}>
-                    <Animated.View style={{paddingLeft:10,paddingRight:10,flexDirection:'row', marginHorizontal:0, position:'relative'}}>
-                          <Left>
-
-                        <TouchableOpacity
-                          style={{marginTop:0}}
-                          onPress={()=>this.props.navigation.openDrawer()}>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_menu.png')}></Image>
-                        </TouchableOpacity>
-                         </Left>
-                           <Image
-                                style={{height:30,width:140}}
-                                source={require('../assets/drawable-hdpi/assets_title_symbol_white.png')}></Image>
-                         <Body>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_favorites.png')}></Image>
-                         </Body>
-                          <Right>
-
-                        <TouchableOpacity
-                            style={{marginTop:0}}
-                            onPress={()=>this.props.navigation.navigate('search')}>
-                         <Image
-                                style={{height:20,width:20}}
-                                source={require('../assets/drawable-hdpi/ic_search.png')}></Image>
-                        </TouchableOpacity>
-                         </Right>
-                     </Animated.View>
-                  </Animated.View>
-                </ImageBackground>
-
-
-
-                  <View style={{flex:1,backgroundColor:'white', marginTop:15}}>
-                  <Text style={{fontSize: 24, fontWeight:'700', paddingHorizontal: 20}}>#겨울별미</Text>
-                  <ScrollView horizontal={true}
-                  showsHorizontalScrollIndicator={false}>
-                  <Category imageUri={require('../assets/chicken.jpg')}
-                  name='삼계탕'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/dumpling.jpg')}
-                  name='물만두'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/soup.jpg')}
-                  name='호박죽'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/riceNuddle.jpg')}
-                  name='쌀국수'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/chicken.jpg')}
-                  name='삼계탕'
-                  height={150}
-                  width={100}/>
-                  </ScrollView>
-                  </View>
-
-
-                  <View style={{flex:1,backgroundColor:'white', marginTop:15}}>
-                  <Text style={{fontSize: 24, fontWeight:'700', paddingHorizontal: 20}}>블룸님을 위한 추천 레시피</Text>
-                  <View style={{marginTop:0, paddingHorizontal:20, backgroundColor:'white'}}>
-                  <ScrollView horizontal={true}
-                  showsHorizontalScrollIndicator={false}>
-                  <View style={{flexDirection:'row',}}>
-                  <ImageBackground
-                  style={{ justifyContent:'flex-end',flex:1, height:180, width:280, resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd', margin:10}} source={require('../assets/steak.jpg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold',paddingBottom:0}}>스테미너에는 스테이크</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold',paddingBottom:20}}>19개의 레시피 보기</Text>
-                  </ImageBackground>
-                  <ImageBackground
-                  style={{ justifyContent:'flex-end',flex:1, height:180, width:330, resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd',margin:10}} source={require('../assets/pizza.jpg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold',paddingBottom:0}}>피자는 페페로니지!</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold',paddingBottom:20}}>19개의 레시피 보기</Text>
-                  </ImageBackground>
-                  </View>
-                  </ScrollView>
-                  </View>
-                  </View>
-
-
-                  <View style={{width:'100%', height:320, backgroundColor:'white',paddingTop:40, paddingLeft:20, paddingRight:20}}>
-                  <ImageBackground
-                  style={{ justifyContent:'center', alignItems:'center',flex:1, height:null, width:null, resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd'}} source={require('../assets/dessert.jpg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold'}}>무한한 상큼함! 무화과 요거트</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold'}}>19개의 레시피 보기</Text>
-                  </ImageBackground>
-                  </View>
-
-
-                  <View style={{flex:1,backgroundColor:'white', marginTop:15}}>
-                  <Text style={{fontSize: 24, fontWeight:'700', paddingHorizontal: 20}}>달콤한 브런치의 유횩</Text>
-                  <View style={{height: 130, marginTop: 10, backgroundColor:'white'}}>
-                  <ScrollView horizontal={true}
-                  showsHorizontalScrollIndicator={false}>
-                  <Category imageUri={require('../assets/icecream.jpg')}
-                  name='아이스크림'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/cokkie.jpg')}
-                  name='쿠키'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/panCake.jpg')}
-                  name='팬케익'
-                  height={150}
-                  width={100}/>
-
-                  <Category imageUri={require('../assets/salad.jpg')}
-                  name='샐러'
-                  height={150}
-                  width={100}/>
-                  </ScrollView>
-                  </View>
-                  </View>
-
-                  <View style={{flex:1,backgroundColor:'white',paddingTop:40, paddingLeft:20, paddingRight:20}}>
-                  <Text style={{color:'black', fontSize: 24, fontWeight:'700',paddingBottom:10}}>BEST 오디오레시피</Text>
-                  <ImageBackground
-                  style={{ justifyContent:'flex-end', alignItems:'flex-start',flex:1, height:180, width:325, resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd'}} source={require('../assets/abo.jpeg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold'}}>까도 까도 매력적인 녀석</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold'}}>아보카도 토스트</Text>
-                  </ImageBackground>
-                  <ImageBackground
-                  style={{ justifyContent:'flex-end', alignItems:'flex-start',flex:1, height:180, width:325, marginTop:15,resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd'}} source={require('../assets/brocoli.jpg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold'}}>헤이 브로~! 건강 챙겨야지</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold'}}>브로콜리 크림스프</Text>
-                  </ImageBackground>
-                  <ImageBackground
-                  style={{ justifyContent:'flex-end', alignItems:'flex-start',flex:1, height:180, width:325,marginTop:15, resizeMode:'cover', borderRadius:5, borderWidth:1,borderColor:'#dddddd'}} source={require('../assets/tomatoPasta.jpg')}>
-                  <Text style={{fontSize:18,paddingLeft:10,color:'white', fontWeight:'bold'}}>상큼한 맛에 내가 미트요</Text>
-                  <Text style={{paddingLeft:10,fontSize:14,color:'white', fontWeight:'bold'}}>미트 토마토 파스ab</Text>
-                  </ImageBackground>
-                  </View>
-
-
-
-                  </Animated.ScrollView>
-
-                  </SafeAreaView>
-                  );
-                }
-              }
+              scrollEventThrottle={1}
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+              style={{zIndex: 0, height: "100%", elevation: -1}}
+              contentContainerStyle={{paddingTop: NAVBAR_HEIGHT}}
+              onScroll={Animated.event(
+                [{nativeEvent: {contentOffset: {y: this.scroll}}}],
+                {useNativeDriver: true},
+              )}
+              overScrollMode="never">
+              <Tabs renderTabBar={(props) => <Animated.View
+                style={[{
+                  transform: [{translateY: tabY}],
+                  zIndex: 1,
+                  width: "100%",
+                  backgroundColor: COLOR
+                }, Platform.OS === "ios" ? {paddingTop: 20} : null]}>
+                <ScrollableTab {...props} underlineStyle={{backgroundColor: "white"}}/>
+              </Animated.View>
+              }>
+                <Tab heading="Tab 1" {...TAB_PROPS}>
+                  {tabContent}
+                </Tab>
+                <Tab heading="Tab 2" {...TAB_PROPS}>
+                  {tabContent2}
+                </Tab>
+              </Tabs>
+            </Animated.ScrollView>
+          </View>
+        );
+      }
+    }
 
               const styles = StyleSheet.create({
                 container: {
