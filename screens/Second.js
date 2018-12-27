@@ -154,9 +154,6 @@ class Second extends Component{
                   </ImageBackground>
                   </View>
 
-
-                  <View style={{height:1000}}>
-                  </View>
                   </ScrollView>
 
                   </View>

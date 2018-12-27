@@ -1,133 +1,127 @@
 import React, {Component} from "react";
-import {Animated, Dimensions, Platform, Text, View, StyleSheet } from 'react-native';
+import {Animated, Dimensions, Platform, Text, View, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
 import {Body, Header, List, ListItem as Item, ScrollableTab, Tab, Tabs, Title} from "native-base";
+import { TabViewAnimated, TabBar,TabView } from 'react-native-tab-view';
+
 import Second from './Second'
+import ContactsList from '../components/ContactsList';
+
 
 import Category from '../components/Category'
 import { store } from './mobxStore'
 var config = require('./app_config.json');
 
-const NAVBAR_HEIGHT = 69;
-const {width: SCREEN_WIDTH} = Dimensions.get("window");
-const COLOR = "rgb(45,181,102)";
-const TAB_PROPS = {
-  tabStyle: {width: SCREEN_WIDTH / 2, backgroundColor: COLOR},
-  activeTabStyle: {width: SCREEN_WIDTH / 2, backgroundColor: COLOR},
-  textStyle: {color: "white"},
-  activeTextStyle: {color: "white"}
-};
+const initialLayout = {
+  height: 0,
+  width: Dimensions.get('window').width,
+}
 
-class MainScreen extends Component {
-  scroll = new Animated.Value(0);
-    headerY;
-
-    constructor(props) {
-      super(props);
-      this.headerY = Animated.multiply(Animated.diffClamp(this.scroll, 0, NAVBAR_HEIGHT), -1);
-    }
-
-  render() {
-    const tabContent = (
-        <Second/>);
-
-            const tabContent2 = (
-              <List>{new Array(20).fill(null).map((_, i) => <Item
-                key={i}><Text>Itemgrwgwrgg {i}</Text></Item>)}</List>);
+const HEADER_HEIGHT = 400;
+const COLLAPSED_HEIGHT = 52
+const SCROLLABLE_HEIGHT = HEADER_HEIGHT - 350
 
 
-        const tabY = Animated.add(this.scroll, this.headerY);
-        return (
-          <View>
-            {Platform.OS === "ios" &&
-            <View style={{backgroundColor: COLOR, height: 20, width: "100%", position: "absolute", zIndex: 2}}/>}
-            <Animated.View style={{
-              width: "100%",
-              position: "absolute",
-              transform: [{
-                translateY: this.headerY
-              }],
-              elevation: 0,
-              flex: 1,
-              zIndex: 1,
-              backgroundColor: COLOR
-            }}>
-              <Header style={{backgroundColor: "gray"}} hasTabs>
-                <Body>
-                <Title>
-                  <Text style={{color: "white"}}>
-                    Collapsing Navbar
-                  </Text>
-                </Title>
-                </Body>
-              </Header>
-            </Animated.View>
-            <Animated.ScrollView
-              scrollEventThrottle={1}
-              bounces={false}
-              showsVerticalScrollIndicator={false}
-              style={{zIndex: 0, height: "100%", elevation: -1}}
-              contentContainerStyle={{paddingTop: NAVBAR_HEIGHT}}
-              onScroll={Animated.event(
-                [{nativeEvent: {contentOffset: {y: this.scroll}}}],
-                {useNativeDriver: true},
-              )}
-              overScrollMode="never">
-              <Tabs renderTabBar={(props) => <Animated.View
-                style={[{
-                  transform: [{translateY: tabY}],
-                  zIndex: 1,
-                  width: "100%",
-                  backgroundColor: COLOR
-                }, Platform.OS === "ios" ? {paddingTop: 20} : null]}>
-                <ScrollableTab {...props} underlineStyle={{backgroundColor: "white"}}/>
-              </Animated.View>
-              }>
-                <Tab heading="Tab 1" {...TAB_PROPS}>
-                  {tabContent}
-                </Tab>
-                <Tab heading="Tab 2" {...TAB_PROPS}>
-                  {tabContent2}
-                </Tab>
-              </Tabs>
-            </Animated.ScrollView>
-          </View>
-        );
-      }
-    }
+export default class MainScreen extends Component {  constructor(props) {
+      super(props)
 
-              const styles = StyleSheet.create({
-                container: {
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: '#F5FCFF',
-                  },
+       this.state = {
+         index: 0,
+         routes: [
+           { key: 'first', title: 'First' },
+           { key: 'second', title: 'Second' },
+         ],
+         scroll: new Animated.Value(0),
+       }
+     }
 
-                  HeaderStyle:
-                  {
-                  flex:1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  top: (Platform.OS == 'ios') ? 45 : 0,
-                  },
-                  HeaderInsideTextStyle:
-                  {
-                  color: "#fff",
-                  fontSize: 18,
-                  textAlign: 'center'
-                  },
-                  TextViewStyle:
-                  {
-                  textAlign: 'center',
-                  color: "#000",
-                  fontSize: 18,
-                  margin: 5,
-                  padding: 7,
-                  backgroundColor: "#ECEFF1"
-                  }
-                  });
+     _handleIndexChange = index => {
+       this.setState({ index });
+     }
 
-export default MainScreen
+     _renderHeader = props => {
+       const translateY = this.state.scroll.interpolate({
+         inputRange: [0, SCROLLABLE_HEIGHT],
+         outputRange: [0, -SCROLLABLE_HEIGHT],
+         extrapolate: 'clamp',
+       })
+
+       return (
+         <Animated.View style={[styles.header, { transform: [{ translateY }] }]}>
+           <ImageBackground
+             source={{ uri: 'https://picsum.photos/800' }}
+             style={styles.cover}>
+             <View style={{backgroundColor:'transparent', width:'100%', height:45, opacity:0.5}}>
+             </View>
+             <TabBar {...props} style={styles.tabbar} />
+           </ImageBackground>
+         </Animated.View>
+       )
+     }
+
+     _renderScene = () => {
+       return (
+         <ContactsList
+           scrollEventThrottle={1}
+           onScroll={Animated.event(
+             [{ nativeEvent: { contentOffset: { y: this.state.scroll } } }],
+             { useNativeDriver: true }
+           )}
+           contentContainerStyle={{ paddingTop: HEADER_HEIGHT }}
+         />
+       )
+     }
+
+     _renderScene = () => {
+       return (
+         <ContactsList
+           scrollEventThrottle={1}
+           onScroll={Animated.event(
+             [{ nativeEvent: { contentOffset: { y: this.state.scroll } } }],
+             { useNativeDriver: true }
+           )}
+           contentContainerStyle={{ paddingTop: HEADER_HEIGHT }}
+         />
+       )
+     }
+
+    render() {
+      return (
+      <SafeAreaView style={{flex:1}}>
+       <TabView
+       style={styles.container}
+       navigationState={this.state}
+      renderScene={this._renderScene}
+      renderTabBar={this._renderHeader}
+      onIndexChange={this._handleIndexChange}
+      useNativeDriver
+      />
+     </SafeAreaView>
+     )
+   }
+  }
+
+  const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+
+   },
+   overlay: {
+     flex: 1,
+     backgroundColor: 'rgba(0, 0, 0, .32)',
+   },
+   cover: {
+     height: HEADER_HEIGHT,
+   },
+   header: {
+     position: 'absolute',
+     top: 0,
+     left: 0,
+     right: 0,
+     zIndex: 1,
+   },
+   tabbar: {
+     backgroundColor: 'transparent',
+     elevation: 0,
+     shadowOpacity: 0,
+   },
+  })

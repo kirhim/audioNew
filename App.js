@@ -114,8 +114,6 @@ const AppStackNavigator = createStackNavigator({
      header: null
    }
  },
-Home: {
- screen: createMaterialTopTabNavigator({
    Home:{
    screen:createDrawerNavigator({
      Home: MainScreen,
@@ -141,79 +139,50 @@ Home: {
    tabBarVisible:true,
    activeTintColor: '#e91e63',
  }
-},
-Second:{
-screen: Second,
-navigationOptions: {
-header: null,
-tabBarVisible:true,
-   }
- }
-},{
- tabBarOptions: {
-  showLabel: true,
-   style: {
-       backgroundColor: 'gray',
-       position: 'absolute',
-       Top:  Dimensions.get('window').height-tabBarHeight,
-       left:0,
-       right:0,
-       opacity:0.5,
-       marginTop:54
-   },
-   labelStyle:{
-     fontSize:15,
-     color:"white"
-   }
- }
-}),
-  navigationOptions: {
-      header: null
-    }
-   }
+}
   })
 
-const AppTapNavigator = createMaterialTopTabNavigator({
-  Home: {
-   screen: createMaterialTopTabNavigator({
-   Home:{
-   screen:MainScreen,
-   navigationOptions: {
-   header: null,
-   tabBarVisible:true,
-   activeTintColor: '#e91e63',
- }
-},
-Second:{
-screen: Second,
-navigationOptions: {
-header: null,
-tabBarVisible:true,
-   }
- }
-},{
- tabBarOptions: {
-  showLabel: true,
-   style: {
-       backgroundColor: 'gray',
-       position: 'absolute',
-       Top:  Dimensions.get('window').height-tabBarHeight,
-       left:0,
-       right:0,
-       opacity:0.5,
-       marginTop:54
-   },
-   labelStyle:{
-     fontSize:15,
-     color:"white"
-   }
- }
-}),
-  navigationOptions: {
-      header: null
-    }
-   }
-})
+// const AppTapNavigator = createMaterialTopTabNavigator({
+//   Home: {
+//    screen: createMaterialTopTabNavigator({
+//    Home:{
+//    screen:MainScreen,
+//    navigationOptions: {
+//    header: null,
+//    tabBarVisible:true,
+//    activeTintColor: '#e91e63',
+//  }
+// },
+// Second:{
+// screen: Second,
+// navigationOptions: {
+// header: null,
+// tabBarVisible:true,
+//    }
+//  }
+// },{
+//  tabBarOptions: {
+//   showLabel: true,
+//    style: {
+//        backgroundColor: 'gray',
+//        position: 'absolute',
+//        Top:  Dimensions.get('window').height-tabBarHeight,
+//        left:0,
+//        right:0,
+//        opacity:0.5,
+//        marginTop:54
+//    },
+//    labelStyle:{
+//      fontSize:15,
+//      color:"white"
+//    }
+//  }
+// }),
+//   navigationOptions: {
+//       header: null
+//     }
+//    }
+// })
 
 
 const AppDrawerNavigator = createDrawerNavigator({

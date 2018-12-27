@@ -168,7 +168,7 @@ class WelcomeScreen extends Component {
           <Text> 아직 회원이 아니세요?</Text>
 
         <TouchableOpacity onPress={()=> this.props.navigation.navigate('register')}>
-          <Text> 회원가입</Text>
+          <Text> 회원가입sss</Text>
         </TouchableOpacity>
         </View>
 
